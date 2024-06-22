@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option  go_package  = "tuzov.student.v1;student1";
+
+service StudentService {
+  rpc CreateStudent(CreateStudentRequest) returns (CreateStudentResponse);
+  rpc GetAllStudent(GetAllStudentsRequest) returns (GetAllStudentsResponse);
+  rpc GetStudentById(GetStudentByIdRequest) returns (Student);
+  rpc UpdateStudent(UpdateStudentRequest)returns (Student);
+}
+
+message UpdateStudentRequest {
+  string student_fname = 1;
+  string student_lname = 2;
+  repeated StudentPhoneNumber phones = 3;
+}
+
+message StudentPhoneNumber {
+  string phone_number = 1;
+}
+message  CreateStudentRequest {
+  string student_fname = 1;
+  string student_lname = 2;
+  string birth_day = 3;
+  repeated StudentPhoneNumber phones = 4;
+}
+
+message CreateStudentResponse {
+  string student_id = 1;
+}
+
+
+message Student {
+  string student_id = 1;
+  string student_fname = 2;
+  string student_lname = 3;
+  string birth_day = 4;
+  repeated StudentPhoneNumber phones = 5;
+  string created_at = 6;
+  string updated_at = 7;
+  string deleted_at = 8;
+  int64  point  = 9;
+}
+
+message  GetAllStudentsRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string  field = 3;
+  string  values = 4;
+}
+message GetAllStudentsResponse {
+  repeated  Student  students = 1;
+}
+
+message GetStudentByIdRequest {
+ string  student_id = 1;
+}
