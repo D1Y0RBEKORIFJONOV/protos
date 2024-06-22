@@ -37,7 +37,7 @@ type AuthClient interface {
 	IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...grpc.CallOption) (*IsAdminResponse, error)
 	UpdateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*Status, error)
-	GetAllUsers(ctx context.Context, in *GerAllResponse, opts ...grpc.CallOption) (*GerAllResponse, error)
+	GetAllUsers(ctx context.Context, in *GetAllUsersRequest, opts ...grpc.CallOption) (*GerAllResponse, error)
 	GetUsersById(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*User, error)
 }
 
@@ -99,7 +99,7 @@ func (c *authClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc
 	return out, nil
 }
 
-func (c *authClient) GetAllUsers(ctx context.Context, in *GerAllResponse, opts ...grpc.CallOption) (*GerAllResponse, error) {
+func (c *authClient) GetAllUsers(ctx context.Context, in *GetAllUsersRequest, opts ...grpc.CallOption) (*GerAllResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GerAllResponse)
 	err := c.cc.Invoke(ctx, Auth_GetAllUsers_FullMethodName, in, out, cOpts...)
@@ -128,7 +128,7 @@ type AuthServer interface {
 	IsAdmin(context.Context, *IsAdminRequest) (*IsAdminResponse, error)
 	UpdateUser(context.Context, *User) (*User, error)
 	Delete(context.Context, *DeleteRequest) (*Status, error)
-	GetAllUsers(context.Context, *GerAllResponse) (*GerAllResponse, error)
+	GetAllUsers(context.Context, *GetAllUsersRequest) (*GerAllResponse, error)
 	GetUsersById(context.Context, *GetRequest) (*User, error)
 	mustEmbedUnimplementedAuthServer()
 }
@@ -152,7 +152,7 @@ func (UnimplementedAuthServer) UpdateUser(context.Context, *User) (*User, error)
 func (UnimplementedAuthServer) Delete(context.Context, *DeleteRequest) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedAuthServer) GetAllUsers(context.Context, *GerAllResponse) (*GerAllResponse, error) {
+func (UnimplementedAuthServer) GetAllUsers(context.Context, *GetAllUsersRequest) (*GerAllResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllUsers not implemented")
 }
 func (UnimplementedAuthServer) GetUsersById(context.Context, *GetRequest) (*User, error) {
@@ -262,7 +262,7 @@ func _Auth_Delete_Handler(srv interface{}, ctx context.Context, dec func(interfa
 }
 
 func _Auth_GetAllUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GerAllResponse)
+	in := new(GetAllUsersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -274,7 +274,7 @@ func _Auth_GetAllUsers_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: Auth_GetAllUsers_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).GetAllUsers(ctx, req.(*GerAllResponse))
+		return srv.(AuthServer).GetAllUsers(ctx, req.(*GetAllUsersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
