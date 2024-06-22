@@ -9,6 +9,7 @@ service TeacherService {
   rpc UpdateTeacher(UpdateTeacherRequest)returns (Teacher);
 }
 
+
 message TeacherPhoneNumber {
   string phone_number = 1;
 }
@@ -34,6 +35,7 @@ message  Teacher {
   string created_at = 8;
   string updated_at = 9;
   string deleted_at = 10;
+  string teacher_id = 11;
 }
 
 
