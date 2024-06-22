@@ -6,6 +6,10 @@ service Auth{
   rpc Register (RegisterRequest)returns (RegisterResponse);
   rpc Login (LoginRequest)returns (LoginResponse);
   rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+  rpc UpdateUser(User)returns (User);
+  rpc Delete(DeleteRequest)returns (Status);
+  rpc GetAllUsers(GerAllResponse)returns (GerAllResponse);
+  rpc GetUsersById(GetRequest)returns (User);
 }
 
 message RegisterRequest {
@@ -20,7 +24,6 @@ message  RegisterResponse {
 message  LoginRequest {
   string  email = 1;
   string password = 2;
-  int32 app_id = 3;
 }
 message  LoginResponse {
   string  token = 1;
@@ -32,4 +35,38 @@ message  IsAdminRequest {
 }
 message  IsAdminResponse{
   bool  is_admin  = 1;
+}
+
+message User {
+  string id = 1;
+  string role = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message  DeleteRequest {
+  string  client_id = 1;
+}
+
+
+message Status {
+  bool  status = 1;
+}
+
+
+message  GetAllUsersRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string  field = 3;
+  string  values = 4;
+}
+
+message GerAllResponse {
+  repeated User allUsers = 1;
+  int32 count = 2;
+}
+
+message GetRequest  {
+  string user_id = 1;
+  bool  is_active = 2;
 }
