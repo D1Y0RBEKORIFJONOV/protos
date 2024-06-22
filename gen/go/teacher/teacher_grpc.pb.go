@@ -4,8 +4,6 @@
 // - protoc             v5.27.1
 // source: teacher/teacher.proto
 
-
-
 package teacher17
 
 import (
