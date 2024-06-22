@@ -60,4 +60,5 @@ message UpdateTeacherRequest {
   string teacher_fname = 1;
   string teacher_lname = 2;
   repeated TeacherPhoneNumber phones = 3;
+  string teacher_id = 4;
 }
