@@ -27,7 +27,7 @@ message RegisterRequest {
   string role  = 3;
 }
 message  RegisterResponse {
-  string  user_id  = 1;
+  bool  created_user = 1;
 }
 
 
