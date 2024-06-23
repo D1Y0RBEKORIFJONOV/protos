@@ -4,6 +4,7 @@ option  go_package  = "tuzov.sso.v1;ssov1";
 
 service Auth{
   rpc Register (RegisterRequest)returns (RegisterResponse);
+  rpc CheckEmailCode(CheckEmailCodeRequest) returns (CheckEmailCodeResponse);
   rpc Login (LoginRequest)returns (LoginResponse);
   rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
   rpc UpdateUser(User)returns (User);
@@ -11,6 +12,14 @@ service Auth{
   rpc GetAllUsers(GetAllUsersRequest)returns (GerAllResponse);
   rpc GetUsersById(GetRequest)returns (User);
 }
+
+message CheckEmailCodeRequest {
+  int32 secret_code = 1;
+}
+message  CheckEmailCodeResponse {
+  bool account_created = 1;
+}
+
 
 message RegisterRequest {
   string email = 1;
