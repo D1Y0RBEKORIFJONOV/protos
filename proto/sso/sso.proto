@@ -15,6 +15,7 @@ service Auth{
 
 message CheckEmailCodeRequest {
   int32 secret_code = 1;
+  string user_id = 2;
 }
 message  CheckEmailCodeResponse {
   bool account_created = 1;
